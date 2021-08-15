@@ -46,7 +46,7 @@ html {
 .form-group {
     position: relative;
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     flex-direction: column;
 }
 
@@ -60,6 +60,11 @@ html {
     padding-bottom: 6px;
     line-height: 1.8rem;
     font-size: 1.4rem;
+}
+
+.form-label .expand-desc{
+    font-weight: lighter;
+    color: #b3b3b3;
 }
 
 .form-control {
@@ -116,7 +121,7 @@ html {
     top: -23px;
 }
 
-.error-message-box.invalid {
+.form-group.invalid .error-message-box{
     opacity: 1;
     transform: translateY(2px);
 }

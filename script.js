@@ -1,10 +1,20 @@
 function Validator(options) {
+    function getParent(element, selector) {
+        while (element.parentElement) {
+            if (element.parentElement.matches(selector)) {
+                return element.parentElement;
+            }
+            element = element.parentElement;
+        }
+    }
+
     var selectorRules = {};
 
     function Validate(inputElement, rule) {
-        var errorElement = inputElement.parentElement.querySelector(
-            options.errorSelector
-        );
+        var errorElement = getParent(inputElement, options.formGroupSelector).querySelector(options.errorSelector);
+        // var errorElement = inputElement.parentElement.querySelector(
+        //     options.errorSelector
+        // );
         var errorMessage = rule.test(inputElement.value);
 
         // Lấy ra các rule của selector
@@ -19,10 +29,10 @@ function Validator(options) {
         if (errorMessage) {
             errorElement.innerText = errorMessage;
             // console.log(errorElement)
-            errorElement.classList.add("invalid");
+            getParent(inputElement, options.formGroupSelector).classList.add("invalid");
         } else {
             // errorElement.innerText = "";
-            errorElement.classList.remove("invalid");
+            getParent(inputElement, options.formGroupSelector).classList.remove("invalid");
         }
 
         return !errorMessage;
@@ -43,18 +53,23 @@ function Validator(options) {
                     isFormValid = false;
                 }
             });
-            
 
             if (isFormValid) {
                 if (typeof options.onSubmit === "function") {
-                    var enableInputs = formElement.querySelectorAll('[name]:not([disabled])');
-                    var formValues = Array.from(enableInputs).reduce(function (values,input) {
+                    var enableInputs = formElement.querySelectorAll(
+                        "[name]:not([disabled])"
+                    );
+                    var formValues = Array.from(enableInputs).reduce(function (
+                        values,
+                        input
+                    ) {
                         values[input.name] = input.value;
                         return values;
-                    }, {});
+                    },
+                    {});
                     options.onSubmit(formValues);
                 } else {
-                    formElement.submit()
+                    formElement.submit();
                 }
             }
         };
@@ -77,7 +92,7 @@ function Validator(options) {
                         ".error-message-box"
                     );
                 inputElement.oninput = function () {
-                    errorElement.classList.remove("invalid");
+                    getParent(inputElement, options.formGroupSelector).classList.remove("invalid");
                 };
 
                 // Xử lý blur ra ngoài

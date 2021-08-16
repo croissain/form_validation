@@ -50,6 +50,16 @@ html {
     flex-direction: column;
 }
 
+.left_align {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.l-desc {
+    font-size: 13px;
+    line-height: 1.5px;
+}
+
 .form-label,
 .form-message {
     text-align: left;

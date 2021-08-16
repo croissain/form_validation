@@ -12,7 +12,7 @@
 <body>
     <div class="main">
         <form action="" method="POST" class="form" id="form-1">
-            <h3 class="heading">Thành viên đăng ký</h3>
+            <h3 class="heading">Đăng ký thành viên</h3>
             <p class="desc">Cùng nhau học lập trình miễn phí tại F8 ❤️</p>
 
             <div class="spacer"></div>
@@ -56,6 +56,20 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="gender" class="form-label">Giới tính</label>
+                <div class= "left_align">
+                    <input name="gender" type="radio" value="male" id="male">
+                    <label class="l-desc" for="male">Nam</label>
+                </div>
+                <div class= "left_align">
+                    <input name="gender" type="radio" value="female" id="female">
+                    <label class="l-desc" for="female">Nữ</label>
+                </div>
+                <div class="error-message-box">
+                    &nbsp;
+                </div>
+            </div>
 
             <div class="spacer"></div>
             <button class="form-submit">Đăng ký</button>
@@ -70,9 +84,10 @@
             formGroupSelector: '.form-group',
             rules: [
                 Validator.isRequired('#fullname', "Vui lòng nhập tên của bạn!"),
-                Validator.isEmail('#email'),
+                // Validator.isEmail('#email'),
                 Validator.minLength('#password', 6),
                 Validator.isRequired('#password_confirmation'),
+                Validator.isRequired('input[name="gender"]'),
                 Validator.isConfirmed('#password_confirmation', function () {
                     return document.querySelector('#form-1 #password').value;
                 }, "Mật khẩu nhập lại không trùng khớp!")
